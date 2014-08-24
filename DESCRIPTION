@@ -1,0 +1,9 @@
+Package: climate
+Title: Markov Climate Models
+Description: Apply markov models to rainfall and other data
+Version: 0.15
+Author: William Hughes
+Maintainer: William Hughes <william.hughes@rogers.com>
+Depends: zoo,lubridate
+License: GPL-3
+LazyData: true
