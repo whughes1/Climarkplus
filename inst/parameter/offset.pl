@@ -4,7 +4,7 @@
 <dd_offset> = NO
 <dw> = d
 <dw_fit_order>= choose
-<dw_offset> = dw
+<dw_offset> = YES
 <wd>= wd
 <wd_fit_order>= choose
 <wd_offset> = NO
