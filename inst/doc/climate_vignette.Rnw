@@ -1,5 +1,5 @@
 \documentclass{article}
-\title{Climate Package}
+\title{Climarkplus Package}
 \author{William Hughes}
 \include{graphicsx}
 \usepackage{float}
@@ -16,8 +16,10 @@ options(digits = 2)
 
 \begin{abstract}
 A reimplimentation in R of some of the
-concepts and methods of R.~Stern's 
-Climate package in Instat.
+concepts and methods of R. Stern's 
+Climate package in Instat
+extended to allow for more general
+modelling
 
 \end{abstract}
 
