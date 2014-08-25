@@ -27,9 +27,13 @@ add_spell_info=function(dataset){
   for(index in 2:num_rows){
     
     #skip DOY 60 in non_leap_years
+    #we can leave this as there should not
+    #be DOY 60 in a non leap year
+    
     if(isTRUE(dataset$DOY[index-1]==59)){
       if(!isTRUE(v_leap_year(dataset$Date[index-1]))) next
     }
+    
     if(!is.na(current_spell) && identical(current_spell,dataset$wet_or_dry[index])){
       current_spell_length=current_spell_length+1
     }else{

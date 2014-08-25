@@ -45,6 +45,11 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
   tdd=ymd(paste(as.character(start_year),"-1-1"))
   td=as.numeric(as.Date(tdd))
   
+  #The data set will be a bit
+  #bigger than needed as non leap years
+  #need only 365 rows.  Just leave this
+  # for now
+  
   length=366*num_years
   
   data_set= matrix(nrow=length,ncol=4)
@@ -69,7 +74,7 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
     #determine if the day is wet or dry
     #use a markov model
     
-    #index=1
+    
     if (runif(1,0,1)< (as.matrix(m_model[,paste("P(w|",
       markov_mod[lags],")",sep="")]))[index]){
       w_or_d = "w"
@@ -125,20 +130,20 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
     lags = paste(w_or_d,substring(lags,1,nchar(lags)-1),sep="")
     r_lags = paste(w_or_d,substring(r_lags,1,nchar(r_lags)-1),sep="")
     
+     #In non leap years add 1 to
+     # index, as we do not have day 60
+   
     if(data_set[line,4]==59){
-      y=(line-59)/366 + start_year
-      if(!leap_year(y)){
-        line=line+1
+      y=round((line-59)/365.25) + start_year
+      if(!leap_year(y)){        
         index=index+1
-        data_set[line,1]=label
-        data_set[line,2]=NA
-        data_set[line,3]= NA
-        data_set[line,4]= 60
       }
     }
     
     td=td+1
     line=line+1
+    
+    
     index=(index+1)%%366
     if(index==0)index=366
     

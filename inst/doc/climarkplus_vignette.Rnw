@@ -96,8 +96,8 @@ deviation of the rain of a "w" day both unconditional, and conditioned
 on lags up to {\tt max\_mean\_rain\_order} (default 1)
 
 <<>>=
-#zaza_pbs=make_all_probs(zaza_wm)
-load("/home/william/Reading/rstudio/climate/zaza_pbs")
+zaza_pbs=make_all_probs(zaza_wm)
+#load("/home/william/Reading/rstudio/climate/zaza_pbs")
 head(zaza_pbs)
 @
 
@@ -418,6 +418,8 @@ mod=make_model_pl(zaza_pbs,"/home/william/Reading/rstudio/climate/trunk/inst/par
 plot_model(mod,"Mixed Model (wet 2, dry 1) dw offset")
 @
 
+Note that the dw line is now visible.  It has the same shape as
+the dd (and hence d) line, but not the same offset.
 
 \subsection{smoothing}
 
@@ -531,7 +533,9 @@ plot(sapply(zaza_split,mean,na.rm=TRUE),xlab="Day of Year",
 points(sapply(synth_split,mean,na.rm=TRUE),col="green")
 @
 
-The fit looks good.
+The fit looks good on the mean, but we note that the variablity
+for the simulated data is lower that that of the real data.
+
 \subsection{Yearly Stats}
 
 If we split our real or synthetic data set by {\tt mod\_year}
