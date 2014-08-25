@@ -9,7 +9,7 @@
 \maketitle
 
 <<echo=FALSE>>=
-library(climate)
+library(climarkplus)
 options(digits = 2)
 @ 
 

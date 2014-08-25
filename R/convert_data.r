@@ -12,31 +12,15 @@ convert_data=function(Data){
   #(not DOY we will make a new one)
   
   test=cbind(Data$Station, as.character(Data$Date), Data$Rain)
-  
-  #detemine Feb 28 for all non leap years
-  
-  insert_dates= test[,2][yday(test[,2])==59 & !v_leap_year(test[,2])]
+
   
   
-  #insert NA's for nonexistent Feb 29's
-  tt=NULL
-  nexti=1
-  for(idate in insert_dates){
-    lasti=which(test[,2]==idate)
-    tt=rbind(tt,test[nexti:lasti,],c(test[1,1],NA,NA))
-    nexti=lasti+1
-  }
-  lasti=nrow(test)
-  tt=rbind(tt,test[nexti:lasti,])
-  
-  
-  
-  datat=as.data.frame(tt)    
+  datat=as.data.frame(test)    
   colnames(datat)=c("Station","Date","Rain") 
   datat$Rain=as.numeric(as.character(datat$Rain))
   
-  # add daz of year, for every year Day 60
-  # is Feb 29, add 1 to non leap years
+  # add daz of year, for every year Day 61
+  # is march  1, thus add 1 to non leap years
   
   
   trow=yday(datat$Date)
