@@ -27,17 +27,8 @@ make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL)
       levels=add_level(levels)
     }
   }
-  
-  
-  ulags=NULL
-  
-  for (lev in levels){
-    ulags=c(ulags,params[lev])
-  }
-  
-  unique_lags =unique(ulags)
-  
-  markov_string=make_markov_string(unique_lags)
+    
+  markov_string=make_markov_string()
   
   offsets=NULL
   

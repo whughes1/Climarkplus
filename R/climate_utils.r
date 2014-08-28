@@ -71,3 +71,17 @@ add_level=function(list){
   }
   ll
 }
+
+#a character based dot product
+
+cdot=function(x,y) {
+  if(length(x) != length(y)) stop("In cdot vectors must be the same size")
+  dot=paste(x[1],"*",y[1])
+  if(length(x) > 1){
+    
+    for(i in 2:length(x)){
+      dot= paste(dot,"+", x[i],"*",y[i])
+    }
+  }
+  dot
+}
