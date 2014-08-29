@@ -85,3 +85,7 @@ cdot=function(x,y) {
   }
   dot
 }
+
+# get inverse logit without loading a new package
+
+inv.logit=function(x){1/(1+exp(-x))}
