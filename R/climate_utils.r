@@ -85,6 +85,9 @@ cdot=function(x,y) {
   }
   dot
 }
+#logit function
+
+logit=function(x){log(x/(1-x))}
 
 # get inverse logit without loading a new package
 

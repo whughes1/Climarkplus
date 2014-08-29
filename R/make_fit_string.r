@@ -16,37 +16,43 @@
 make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL)
   
 {
-  params=read_pl(filename)
-  order = as.numeric(params["order"])
-  numlags=2^order
-  
-  # set up names of 2^order levels
-  levels=c("w","d")
-  if(order>1){
-    for(i in 1:(order-1)){
-      levels=add_level(levels)
-    }
-  }
+  if(is.null(filename)){
+    markov_string=NULL
+    offsets=NULL
+  } else {
+    params=read_pl(filename)
+    order = as.numeric(params["order"])
+    numlags=2^order
     
-  markov_string=make_markov_string()
-  
-  offsets=NULL
-  
-  for (lev in levels){
-    arg= paste(lev,"_offset",sep="")
-    if(params[arg]=="YES"){
-      k=nchar(lev)
-      temp=paste("lag_",k,"=='",lev,"'",sep="")
-      offsets=paste(offsets,"+",temp)
+    # set up names of 2^order levels
+    levels=c("w","d")
+    if(order>1){
+      for(i in 1:(order-1)){
+        levels=add_level(levels)
+      }
+    }
+    
+    markov_string=make_markov_string()
+    
+    
+    offsets=NULL
+    
+    for (lev in levels){
+      arg= paste(lev,"_offset",sep="")
+      if(params[arg]=="YES"){
+        k=nchar(lev)
+        temp=paste("Off",lev,sep="")
+        offsets=paste(offsets,"+",temp)
+      }
     }
   }
   
   other_string=paste(others,collapse=" + ")
   
   fit_string=paste("w_or_d ~",markov_string)
-  if(!is.null(offsets)) fit_string=paste(markov_string,offsets)
-  if(!(other_string == "")) fit_string=paste(fit_string,"+",other_string)
-  if(!is.null(other_model_string)) fit_string=paste(fit_string,"+",other_model_string)
+  if(!is.null(offset)) fit_string=paste(fit_string,offsets)
+  if(!(other_string == "")) fit_string=paste(fit_string," +",other_string)
+  if(!is.null(other_model_string)) fit_string=paste(fit_string," +",other_model_string)
   
   fit_string
 }
