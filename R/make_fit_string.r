@@ -13,26 +13,35 @@
 #' @details  <TBD>
 #' @export
 
-make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL)
-  
+make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL,is_rain=FALSE)  
 {
   if(is.null(filename)){
     markov_string=NULL
     offsets=NULL
   } else {
     params=read_pl(filename)
-    order = as.numeric(params["order"])
+    if(is_rain){
+    order = as.numeric(params["rain_order"])
+    }else 
+    {
+      order = as.numeric(params["order"]) 
+    }
     numlags=2^order
     
     # set up names of 2^order levels
-    levels=c("w","d")
-    if(order>1){
-      for(i in 1:(order-1)){
-        levels=add_level(levels)
+    
+    if(order>0){
+      levels=c("w","d")
+      if(order>1){
+        for(i in 1:(order-1)){
+          levels=add_level(levels)
+        }
       }
+    }else{
+      levels=NULL
     }
     
-    markov_string=make_markov_string()
+    markov_string=make_markov_string(order=order)
     
     
     offsets=NULL
@@ -49,7 +58,15 @@ make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL)
   
   other_string=paste(others,collapse=" + ")
   
-  fit_string=paste("w_or_d ~",markov_string)
+  
+  if(is_rain){
+    fit_string=paste("Rain ~",markov_string)
+  } else{
+    fit_string=paste("w_or_d ~",markov_string)
+  }
+  
+    
+    
   if(!is.null(offset)) fit_string=paste(fit_string,offsets)
   if(!(other_string == "")) fit_string=paste(fit_string," +",other_string)
   if(!is.null(other_model_string)) fit_string=paste(fit_string," +",other_model_string)
