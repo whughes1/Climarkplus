@@ -7,13 +7,15 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount){
   params2=info2[[1]]
   
   #make the model
-  info=rep(NA,366)
+  info=rep("",366)
   mod=data.frame(info)
-  
+  mod[,"info"]=as.character(mod[,"info"])
   
   #add the chance of rain cols
   
   order=params1["order"]
+  
+  mod[1,"info"]=paste("<order> =",order)
   
   levels=levs(as.numeric(order))
   
@@ -32,6 +34,9 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount){
   # add the amount of rain columns
   
   order=params2["rain_order"]
+  mod[2,"info"]=paste("<rain_order> =",order) 
+  shape= gamma.shape(fit2)
+  mod[3,"info"]=paste("<shape> =",shape[[1]])
   
   if(as.numeric(order) > 0){
     

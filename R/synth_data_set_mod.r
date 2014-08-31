@@ -1,20 +1,19 @@
 #' Given a mixed markov model set, synthesize a data set
 #' 
 #' 
-#' @param m_model  a mixed markov model
+#' @param model  a standard model
 #' @param start_year  The year to start the synthetic data
 #' @param r_seed if non null, the random seed to use 
 #' @param num_years  number of years to synthesize
 #' @param start_string  The initial conditons (e.g. wdwdw)
 #' @param label  The "station name"
-#' @inheritParams construct_model
 #' @return A standard data set
 #' @note The function takes about 7 seconds to synthesize 100 years of data.
 #' Thus producing 1000 data sets of 1000 years each (usefull for bootstraping)
 #' will take about 20 hours. 
 #' @export
 
-synth_data_set_mod=function(m_model,start_year=1970,num_years=10, 
+synth_data_set_mod=function(model,start_year=1970,num_years=10, 
                         r_seed=NULL,start_string=NULL,
                         rain_start_string=NULL,
                         label=NULL,thresh=0.12){
@@ -28,15 +27,16 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
   #the length of the lag for rain may be different
   
   
-  order=m_model[1,1]
-  markov_mod = get_mixed_models(m_model[2,1],m_model[3,1])
+  order=as.numeric(read_pl(text=model[1,"info"]))
+  
   if(is.null(start_string)){
     start_string=paste(rep("d",order),collapse="")
   }
   lags= start_string
   
-  r_order=max(m_model[4,1],m_model[5,1])
-  r_markov_mod = get_mixed_models(m_model[4,1],m_model[5,1])
+  r_order=as.numeric(read_pl(text=model[2,"info"]))
+  shape=as.numeric(read_pl(text=model[3,"info"]))
+  
   if(is.null(rain_start_string)){
     rain_start_string=paste(rep("d",r_order),collapse="")
   }
@@ -56,10 +56,6 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
   
   colnames(data_set)=c("Station","Date","Rain","DOY")
   
-  
-
-  
-  
   line=1
   index=yday.ssc(tdd)
   
@@ -75,11 +71,10 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
     #use a markov model
     
     
-    if (runif(1,0,1)< (as.matrix(m_model[,paste("P(w|",
-      markov_mod[lags],")",sep="")]))[index]){
+    if (runif(1,0,1)< (as.matrix(model[,paste("P(w|",
+      lags,")",sep="")]))[index]){
       w_or_d = "w"
-    }
-    else{
+    } else{
       w_or_d = "d"
     }
     
@@ -103,22 +98,15 @@ synth_data_set_mod=function(m_model,start_year=1970,num_years=10,
     
     if(w_or_d == "w"){
       
-      r_string=r_markov_mod[r_lags]
+      r_string=r_lags
       if(r_string == "" | r_order==0) {
         r_string="<rain>"
       }else{
         r_string=paste("<(r|",r_string,")>",sep="")
       }
       
-      sd_string=r_markov_mod[r_lags]
-      if(sd_string == "" | r_order==0) {
-        sd_string="sd(rain)"
-      }else{
-        sd_string=paste("sd(r|",sd_string,")",sep="")
-      }
-      
-      mean=m_model[index,r_string]-thresh
-      shape=mean^2/m_model[index,sd_string]^2
+           
+      mean=model[index,r_string]-thresh
       rate=shape/mean
       data_set[line,3]= rgamma(1,shape,rate=rate)+thresh
     }

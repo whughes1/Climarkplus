@@ -6,25 +6,32 @@
 #' are ignored.  
 #' @export
 
-read_pl=function(file="filename"){
+read_pl=function(file="filename",text=NULL){
   
   #pat matches a line with <key> = value
   #we need better definitions of key and value
   key_pat="\\w+"
-  value_pat="\\w+"
+  value_pat="[^ ]*"
   pat=paste("^ *<",key_pat,"> *= *",value_pat," *$",sep="")
   
   
   p_list=NULL
-  con  <- file(file, open = "r")
-  lns=readLines(con)
+  
+  if(is.null(text)){
+    con  <- file(file, open = "r")
+    lns=readLines(con)
+  }else {
+    lns=text
+  }
   for (ln in lns){
     if (grepl(pat,ln)){
       x=strsplit(ln,"=")
       p_list[gsub("<|>","",climate_trim(x[[1]][1]))]=climate_trim(x[[1]][2])
     }
   }
-  close(con)
+  if(is.null(text)){
+     close(con)
+  }
   p_list
   
 }
