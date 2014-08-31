@@ -5,7 +5,7 @@ Use a parameter \code{.pl} file to guide the fitting
 process}
 \usage{
   make_fit_string(filename = NULL, others = NULL,
-    other_model_string = NULL)
+    other_model_string = NULL, is_rain = FALSE)
 }
 \arguments{
   \item{filename}{The name of the parameter file}

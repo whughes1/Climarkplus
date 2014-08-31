@@ -60,6 +60,17 @@ climate_kv=function(key_value_string){
       
 
 #simple function to get a list of levels
+#order must by >= 1
+
+levs=function(order){
+  levels=c("w","d")
+  if(order>1){
+    for(i in 1:(order-1)){
+      levels=add_level(levels)
+    }
+  }
+  levels
+}
 
 add_level=function(list){
   ll=NULL
