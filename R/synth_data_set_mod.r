@@ -8,9 +8,9 @@
 #' @param start_string  The initial conditons (e.g. wdwdw)
 #' @param label  The "station name"
 #' @return A standard data set
-#' @note The function takes about 7 seconds to synthesize 100 years of data.
+#' @note The function takes about 8 seconds to synthesize 100 years of data.
 #' Thus producing 1000 data sets of 1000 years each (usefull for bootstraping)
-#' will take about 20 hours. 
+#' will take about 22 hours. 
 #' @export
 
 synth_data_set_mod=function(model,start_year=1970,num_years=10, 

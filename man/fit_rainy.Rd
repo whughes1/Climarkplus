@@ -27,7 +27,7 @@ process}
 }
 \details{
   The basic idea is to fit the Fourier coefficients of the
-  Markov probabilities to the raw data using logit
+  Markov probabilities to the raw data using logistic
   regression. Which lags are used, the fitting order, and
   whether an offset is applied to get the final curve is
   determined by the values in the parameter file.  This

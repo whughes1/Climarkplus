@@ -6,15 +6,6 @@ given that the day is rainy,}
 \usage{
   make_probs(data, order = 2, thresh = 0.12)
 }
-\arguments{
-  \item{data}{a standard data set (e.g. every year has DOY
-  61 March 1)}
-
-  \item{order}{The order of the markov model}
-
-  \item{thresh}{The rain threshold below which a day will
-  be assumed not to have rain}
-}
 \value{
   A file with 366 rows and 2^(order+1)+3 columns giving the
   probability of rain for a given lag, the number of days

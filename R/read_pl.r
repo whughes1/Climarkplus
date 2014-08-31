@@ -11,7 +11,7 @@ read_pl=function(file="filename",text=NULL){
   #pat matches a line with <key> = value
   #we need better definitions of key and value
   key_pat="\\w+"
-  value_pat="[^ ]*"
+  value_pat="\\S+"
   pat=paste("^ *<",key_pat,"> *= *",value_pat," *$",sep="")
   
   

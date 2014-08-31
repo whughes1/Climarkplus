@@ -1,3 +1,16 @@
+
+#' Make a model from fit objects
+#' 
+#' 
+#' @param fit_object_rainy  a fit object that gives the probability
+#'        that a day is rainy
+#' @param fit_object_amount  A fit object that give the amount of rain
+#'        on a rainy day
+#' @return a model suitable as a parameter to synth_data_set_from_model
+#' @details  The underlying functions use some r string maniplation
+#' which this function evaluates as R code to compute the output of the
+#' fits.  As yet this only handles stuff dependent only on DOY 
+#' @export
 make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount){
   fit1=fit_object_rainy[[2]]
   fit2=fit_object_amount[[2]]

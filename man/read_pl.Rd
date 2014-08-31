@@ -2,7 +2,7 @@
 \alias{read_pl}
 \title{Read a list of parameters of the form <key>=value}
 \usage{
-  read_pl(file = "filename")
+  read_pl(file = "filename", text = NULL)
 }
 \arguments{
   \item{file}{The filename of the parameter file}
