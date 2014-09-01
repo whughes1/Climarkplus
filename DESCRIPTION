@@ -4,6 +4,6 @@ Description: Apply generalized Markov models to rainfall and other data
 Version: 0.1
 Author: William Hughes
 Maintainer: William Hughes <william.hughes@rogers.com>
-Depends: zoo,lubridate
+Depends: zoo,lubridate,MASS
 License: GPL-3
 LazyData: true

@@ -25,6 +25,14 @@
 \description{
   Given a mixed markov model set, synthesize a data set
 }
+\details{
+  The synthesizer gets the probablity of rain (given the
+  previous days pattern of w and d) and determines if the
+  day in rainy.  If so it then determined how much rain
+  will fall (using a gamma distribution).  Currently it
+  only uses stuff that is dependent on DOY and assumes that
+  the numbers in the model represent probablities.
+}
 \note{
   The function takes about 8 seconds to synthesize 100
   years of data. Thus producing 1000 data sets of 1000
