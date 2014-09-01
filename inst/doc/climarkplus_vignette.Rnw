@@ -388,7 +388,9 @@ the fit, an R object.
 An example
 
 <<>>=
-fit_object_1=fit_rainy(zaza_wm,filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl")
+fit_object_1=fit_rainy(zaza_wm,
+filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl"
+)
 fit_object_1[[1]]
 summary(fit_object_1[[2]])
 @
@@ -414,7 +416,9 @@ head(zaza_wm)
 We can now add Julian as a predictor
 
 <<>>=
-fit_object_1a=fit_rainy(zaza_wm,filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl",others="Julian")
+fit_object_1a=fit_rainy(zaza_wm,
+filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl",
+others="Julian")
 summary(fit_object_1a[[2]])
 @
 
@@ -431,7 +435,10 @@ We can also add something to the {\tt other\_model\_string}
 parameter.  Lets look at the interactions of Julian with
 the lags
 <<>>=
-fit_object_1b=fit_rainy(zaza_wm,filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl",others="Julian",other_model_string="ULAGS:Julian")
+fit_object_1b=fit_rainy(zaza_wm,
+filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl",
+others="Julian",
+other_model_string="ULAGS:Julian")
 summary(fit_object_1b[[2]])
 @
 There is no significant interaction of Julian with any of the lags.
@@ -442,7 +449,9 @@ We can also fit the amounts.  Note that we use Gamma regression
 we only fit on days wich are rainy
 
 <<>>=
-fit_object_2=fit_amounts(zaza_wm,filename="/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl")
+fit_object_2=fit_amounts(zaza_wm,
+filename=
+"/home/william/Reading/rstudio/Climarkplus/inst/parameter/order_2_0.pl")
 summary(fit_object_2[[2]])
 @
 
@@ -507,7 +516,8 @@ interactively or automatically.
 The function used is {\tt make\_approx\_model\_pl}.
 
 <<>>=
-  zaza_approx = make_approx_model_pl(zaza_pbs,"/home/william/Reading/rstudio/climate/trunk/inst/parameter/order_2_0.pl")
+  zaza_approx = make_approx_model_pl(zaza_pbs,
+"/home/william/Reading/rstudio/climate/trunk/inst/parameter/order_2_0.pl")
 @ 
 
 When fitting to obtain the approximate model , we weight each estimate by the number of observations used to

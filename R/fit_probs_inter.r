@@ -49,7 +49,7 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     #plot the raw data a circles, radius proportional
     #to the square root of the weight 
     
-    main_title=paste("Data fitted by Fourier series: order=",
+    main_title=paste(y_label,"fitted by Fourier series: order=",
           as.character(order))
     sub_title = paste("Delta Deviance ",as.character(devi-old_devi)," going from order ",
                        as.character(last_order),"to",as.character(order))
@@ -79,28 +79,33 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     
     
     # output query
-    cat("\n\nenter\n\na:  use this fit\nb:  use previous order\nf:  add one to order\nk:  set order to k")
+    cat("\n\nenter\n\na:  use this fit\np:  use previous order\nf:  add one to order\nb:  take one from order\nk:  set order to k")
     
     #get info
     input=readLines(n=1)
     
-    if(identical(input,"b")){
+    if(identical(input,"p")){
       order=last_order
     }
     if(identical(input,"f")){
       last_order=order
       order=order+1
     }
+    if(identical(input,"b")){
+      last_order=order
+      order=order-1
+    }
     
     if(suppressWarnings(!is.na(as.numeric(input)))){
       last_order=order
       order = trunc(as.numeric(input))
-      if(order<1) order=1
-      if(order>100) order=100
     }
+    if(order<1) order=1
+    if(order>100) order=100
+    
   }
   
   
-  no_na
+  order
   
 }

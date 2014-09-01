@@ -12,24 +12,35 @@
 #' (eg. dd dw).  The three curves are plotted
 #' 
 #' @export
-compare_lags=function(all_pbs,first_lag="d"){
+compare_lags=function(all_pbs,search_lag="dd"){
   input="a"
+  first_round=TRUE
   while(input!="") {
-    # output query
-    cat("\n\nenter\n\nlag      lag to use\nnothing   quit\n\n")
     
-    #get info
-    input=readLines(n=1)
+    if(first_round){
+      first_round=FALSE
+      index=1
+    }else{
+      # output query
+      cat("\n\nenter\n\nn      no\nb     go back one\ny     yes\no    yes with offset\n")
+      
+      #get info
+      input=readLines(n=1)
+      
+      if(input == "q" || input == "y" || input == "o" )break
+      
+      if(input=="b"){  
+        index=index-1
+      } else {
+        index = index + 1
+        if(index > nchar(search_lag)) index = nchar(search_lag)
+      }
+      
+      
+      
+    }
     
-    if(input == "")break
-    
-    #plot the fitted curve for
-    #the given lag and the curves if the previous
-    #day was wet or dry
-    
-    lag = input
-    lag_d=paste(lag,"d",sep="")
-    lag_w=paste(lag,"w",sep="")
+    lag=substring(search_lag,1,index)
     
     
     #check if the needed probabities are
@@ -37,13 +48,9 @@ compare_lags=function(all_pbs,first_lag="d"){
     
     
     c_lag=paste("P(w|",lag,")",sep="")
-    c_lag_d=paste("P(w|",lag_d,")",sep="")
-    c_lag_w=paste("P(w|",lag_w,")",sep="")
+    c_lag_search=paste("P(w|",search_lag,")",sep="")
     
-    if(  (!c_lag %in% names(all_pbs))
-        |(!c_lag_d %in% names(all_pbs))
-        |(!c_lag_w %in% names(all_pbs))
-    )
+    if(  (!c_lag %in% names(all_pbs)) )
     {
       cat("\n\n*****\nlag not available in probability set\n*****")
       next
@@ -52,26 +59,29 @@ compare_lags=function(all_pbs,first_lag="d"){
     lagline=fit_probs(all_pbs[,c_lag],
                       ws=all_pbs[,paste("#",lag,sep="")],
                       order=4)[[1]]
-    main_title=paste("Compare",c_lag,"to",c_lag_d, "and", c_lag_w)
+    main_title = paste ("Will ",lag," do for ",search_lag,"?",sep="")
+    sub_title=paste("Compare",c_lag,"to",c_lag_search)
     plot(lagline,type="l",col="blue",ylim=c(0,.8),
-          main=main_title,xlab="day",ylab="probability")
+          main=main_title,sub=sub_title,xlab="day",ylab="probability")
     
-    lagline_w=fit_probs(all_pbs[,c_lag_d],
-                      ws=all_pbs[,paste("#",lag_d,sep="")],
+    lagline_search=fit_probs(all_pbs[,c_lag_search],
+                      ws=all_pbs[,paste("#",search_lag,sep="")],
                       order=4)[[1]]
-    lines(lagline_w,col="red")
+    lines(lagline_search,col="red")
     
-    lagline_d=fit_probs(all_pbs[,c_lag_w],
-                        ws=all_pbs[,paste("#",lag_w,sep="")],
-                        order=4)[[1]]
-    lines(lagline_d,col="green")
     
-    legend("topleft", c(c_lag,c_lag_d,c_lag_w),lty=c(1,1,1),
-           col = c("blue","red","green"),cex=.8)
+    legend("topleft", c(c_lag,c_lag_search),lty=c(1,1),
+           col = c("blue","red"),cex=.8)
     
     
   }
+  
+  if (input == "o"){
+    ret_list = list(lag,"YES")
+  }else{
+    ret_list = list(lag,"NO")
+  }
     
-    
+  ret_list  
 }
 
