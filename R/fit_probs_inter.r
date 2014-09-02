@@ -51,7 +51,8 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     
     main_title=paste(y_label,"fitted by Fourier series: order=",
           as.character(order))
-    sub_title = paste("Delta Deviance ",as.character(devi-old_devi)," going from order ",
+    sub_title = paste("Delta Deviance ",as.character(round((devi-old_devi),1)),
+                      " going from order ",
                        as.character(last_order),"to",as.character(order))
     if(!N==1){
       new_visual_weight=visual_weight
@@ -79,7 +80,7 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     
     
     # output query
-    cat("\n\nenter\n\na:  use this fit\np:  use previous order\nf:  add one to order\nb:  take one from order\nk:  set order to k")
+    cat("\n\nenter\n\na:  use this fit\np:  select previous order\nf:  add one to order\nb:  take one from order\nk:  set order to k")
     
     #get info
     input=readLines(n=1)

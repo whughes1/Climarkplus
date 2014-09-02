@@ -14,9 +14,12 @@ get_fourier=function(probs, first_fit_order=1,lag="d"){
   
   
   #each of the lines is a fit of the raw probabilities
+  #some question about what is the best smoothing parameter
+  #for the raw data.  N=4 seems to be a good compromise
+  #a better user inteface would allow this to change
   
   fourier_order=fit_probs_inter(probs[,colname],
-                          ws=probs[,paste("#",lag,sep="")],N=1,
+                          ws=probs[,paste("#",lag,sep="")],N=4,
                           start_order=first_fit_order,
                           y_label=colname)
   fourier_order
