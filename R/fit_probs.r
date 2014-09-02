@@ -1,5 +1,5 @@
 #' @export
-fit_probs = function(probs,ws=NULL,order=2,thresh=5,method="bernoulli")
+fit_probs = function(probs,ws=NULL,order=2,thresh=5,method="standard")
     
 {
   if(order ==  "choose")

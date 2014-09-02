@@ -3,23 +3,27 @@
 #' 
 #' 
 #' @param probs all raw probabilities
-#' @param first_lag  The first case to try
+#' @param search lag  Try all the prefixes of search
+#'                    lag to see if any can be used (perhaps
+#'                    with an offset)
+#' @param is_rain     True if we are looking at mean rainfall
+#' @return The lag to use and the offset
 #' 
-#' @return none, this produces plots
-#' 
-#' @details  You are asked for a lag (e.g d)
-#' The function makes new lags by appending d and w
-#' (eg. dd dw).  The three curves are plotted
+#' @details  For every prefix of the search lag (e.g search_lag = "ddw"
+#' prefixes = "d". "dd", "ddw") fit the prefix and the search lag
+#' to the data and compare the curves.  You can decide wether
+#' or not to accept the lag, perhaps with an offset.
 #' 
 #' @export
-compare_lags=function(all_pbs,search_lag="dd"){
+compare_lags=function(all_pbs,search_lag="dd",is_rain=FALSE){
   input="a"
   first_round=TRUE
-  while(input!="") {
+  while(input!="Q") {
     
     if(first_round){
       first_round=FALSE
       index=1
+      if(is_rain) {index=0}
     }else{
       # output query
       cat("\n\nenter\n\nn      no\nb     go back one\ny     yes\no    yes with offset\n")
@@ -43,12 +47,26 @@ compare_lags=function(all_pbs,search_lag="dd"){
     lag=substring(search_lag,1,index)
     
     
-    #check if the needed probabities are
+    #check if the needed probabilties are
     #available
     
     
-    c_lag=paste("P(w|",lag,")",sep="")
-    c_lag_search=paste("P(w|",search_lag,")",sep="")
+    
+    if(lag==""){
+      c_lag="<rain>"
+    }else{
+      if(is_rain){
+        c_lag=paste("<(r|",lag,")>",sep="") 
+      } else{
+        c_lag=paste("P(w|",lag,")",sep="")
+      }
+    }
+    
+    if(is_rain){
+      c_lag_search=paste("<(r|",search_lag,")>",sep="") 
+    } else{
+      c_lag_search=paste("P(w|",search_lag,")",sep="")
+    }
     
     if(  (!c_lag %in% names(all_pbs)) )
     {
@@ -56,16 +74,40 @@ compare_lags=function(all_pbs,search_lag="dd"){
       next
     }
     
-    lagline=fit_probs(all_pbs[,c_lag],
-                      ws=all_pbs[,paste("#",lag,sep="")],
-                      order=4)[[1]]
-    main_title = paste ("Will ",lag," do for ",search_lag,"?",sep="")
-    sub_title=paste("Compare",c_lag,"to",c_lag_search)
-    plot(lagline,type="l",col="blue",ylim=c(0,.8),
-          main=main_title,sub=sub_title,xlab="day",ylab="probability")
+    if(is_rain){
+      if(lag==""){
+           ws=all_pbs[,"# wet days"]
+        }else{
+           ws=all_pbs[,paste("#r",search_lag,sep="")]
+        }
+    }else{
+      ws=all_pbs[,paste("#",search_lag,sep="")]
+    }
     
+    lagline=fit_probs(all_pbs[,c_lag],
+                      ws=ws,
+                      order=4)[[1]]
+    
+    if(lag==""){
+      main_title = paste ("Will no lag do for ",search_lag,"?",sep="")      
+    }else{
+      main_title = paste ("Will ",lag," do for ",search_lag,"?",sep="")
+    }
+    sub_title=paste("Compare",c_lag,"to",c_lag_search)
+    if(is_rain){
+      ylim=c(5,15)
+    }else{
+      ylim=c(0,0.8)
+    }
+    plot(lagline,type="l",col="blue",ylim=ylim,
+          main=main_title,sub=sub_title,xlab="day",ylab="probability")
+    if(is_rain){
+      ws=all_pbs[,paste("#r",search_lag,sep="")]
+    }else{
+      ws=all_pbs[,paste("#",search_lag,sep="")]
+    }
     lagline_search=fit_probs(all_pbs[,c_lag_search],
-                      ws=all_pbs[,paste("#",search_lag,sep="")],
+                      ws=ws,
                       order=4)[[1]]
     lines(lagline_search,col="red")
     

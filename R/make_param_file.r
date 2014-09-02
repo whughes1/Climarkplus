@@ -27,6 +27,7 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,filename=NUll,all
     params[paste(lev,"_offset",sep="")]=lag_chose[[2]]
   }
   
+  
   #for each lag find the order of Fourier fit
   #needed
   done = NULL
@@ -44,5 +45,46 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,filename=NUll,all
       
     }
   }
+  
+  
+  #fit the rain stuff
+  
+  order=1
+  
+  levels = levs(order)
+  for(lev in levels){
+    
+    lag_chose=compare_lags(all_pbs,search_lag=lev,is_rain=TRUE)
+    params[paste("r",lev,sep="")]=lag_chose[[1]]
+    params[paste("r",lev,"_offset",sep="")]=lag_chose[[2]]
+  }
+  
+  
+  #fit fourier coefs to the rain curves
+  
+  done = NULL
+  lev_orders=NULL
+  for(lev in levels){
+    rlev=paste("r",lev,sep="")
+    if(params[rlev]==""){
+      plev="none"
+    }else{
+      plev=params[rlev]
+    }
+    if(plev %in% done){
+      Fourier_order=lev_orders[plev]
+      params[paste("r",lev,"_fit_order",sep="")]=Fourier_order
+    } else {
+      
+      Fourier_order = get_fourier(all_pbs,1,plev,is_rain=TRUE,method="Standard")
+      done = c(done,plev)
+      lev_orders[plev]=Fourier_order
+      params[paste("r",lev,"_fit_order",sep="")]=Fourier_order
+      
+    }
+  }
+  
+  
+  
   params
 }   

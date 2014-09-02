@@ -25,6 +25,8 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     if( !(method == "bernoulli")){
       form=as.formula(paste("probs ~ ",form))
       sol=lm(form,weights=ws,na.action=na.exclude)
+      old_devi=devi
+      devi=deviance(sol)
       #no_na does not contain NA values, fitted(sol) or predicted(sol) does
       no_na=cbind(rep(1,366),to_fit) %*% as.matrix(coefficients(sol))
     }

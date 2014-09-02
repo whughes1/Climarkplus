@@ -4,13 +4,24 @@
 #' @param probs  the markov wet/dry probabilities and the rain mean
 #' @param first_fit_order  the first fit order used
 #' @param lag  the lag to be fit
+#' @param is_rain  TRUE if the fit is to mean rain
+#' @param the fitting method to use
 #' @return the order used to fit lag
 #' @details  TBD
 #' @export
 
-get_fourier=function(probs, first_fit_order=1,lag="d"){
+get_fourier=function(probs, first_fit_order=1,lag="d",is_rain=FALSE,method="bernoulli"){
   
-  colname=paste("P(w|",lag,")",sep="")
+  
+  if(is_rain){
+    if(lag=="none"){
+      colname="<rain>"
+    }else{
+      colname=paste("<(r|",lag,")>",sep="")    
+    }
+  }else{
+    colname=paste("P(w|",lag,")",sep="")
+  }
   
   
   #each of the lines is a fit of the raw probabilities
@@ -18,10 +29,20 @@ get_fourier=function(probs, first_fit_order=1,lag="d"){
   #for the raw data.  N=4 seems to be a good compromise
   #a better user inteface would allow this to change
   
+  
+  if(lag=="none"){
+    ws=probs[,"# wet days"]
+  } else{
+    if(is_rain){
+      ws=probs[,paste("#r",lag,sep="")]
+    } else {
+      ws=probs[,paste("#",lag,sep="")] 
+    }
+  }
   fourier_order=fit_probs_inter(probs[,colname],
-                          ws=probs[,paste("#",lag,sep="")],N=4,
+                          ws=ws,N=4,
                           start_order=first_fit_order,
-                          y_label=colname)
+                          y_label=colname,method=method)
   fourier_order
   
   }

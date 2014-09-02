@@ -1,15 +1,15 @@
 <order> = 2
 <dd> = dd  
-<dd_fit_order>= choose
+<dd_fit_order>= 4
 <dd_offset> = NO
 <dw> = dw
-<dw_fit_order>= choose
+<dw_fit_order>= 4
 <dw_offset> = NO
 <wd>= wd
-<wd_fit_order>= choose
+<wd_fit_order>= 4
 <wd_offset> = NO
 <ww> = ww
-<ww_fit_order>= choose
+<ww_fit_order>= 4
 <ww_offset> = NO
 
 
@@ -17,15 +17,10 @@
 <rw>=w
 <rw_fit_order>=4
 <rw_offset> = NO
-<rw_sd>=w
-<rw_sd_fit_order>=4
-<rw_sd_offset> = NO
-<rd>=0
+
+<rd>=rd
 <rd_fit_order>=4
 <rd_offset> = NO
-<rd_sd>=0
-<rd_sd_fit_order>=4
-<rd_sd_offset> = NO
 
 
 
