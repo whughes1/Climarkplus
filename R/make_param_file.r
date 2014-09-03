@@ -1,4 +1,29 @@
-make_param_file=function(data_set,max_order=3,max_rain_order=2,filename=NUll,all_pbs=NULL){
+#'Given a data set help determine a suitable parameter file
+#'for fitting the model.  In particular for each lag we see
+#'if the (possibly shifted) curve from a previous lag can
+#'be used and for each lag used we deternine the number of Fourier
+#'harmonics needed to adaquately model it
+#' 
+#' @param data_set  (must have Markov lags)
+#' @param max_order  Check all lags up to max_order for fitting
+#'                   probability of rain
+#' @param max_rain_order  As above but fitting the mean rain
+#' @param filename   the parameter file to output to
+#' @param all_pbs    This is calculated by the program but
+#'                   it is not fast.   When dealing multiple
+#'                   times with one data set it is worth
+#'                   computing this once and keepint it.
+#'@return A parameter list, the same list that would be
+#'          obtained by reading the output parameter file.
+#'@details For each lag we help determine                             
+#'if the (possibly shifted) curve from a previous lag can
+#'be used and for each lag used we deternine the number of Fourier
+#'harmonics needed to adaquately model it.  The quantities are written
+#'to a parameter file.
+#'@export
+
+make_param_file=function(data_set,max_order=3,max_rain_order=2,
+                         filename=NUll,all_pbs=NULL){
   
   
   data_set_doy=convert_data(data_set)
@@ -83,8 +108,6 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,filename=NUll,all
       
     }
   }
-  
-  
-  
-  params
+  params[params==""]="0"
+  write_pl(params,filename)
 }   

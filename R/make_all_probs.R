@@ -1,6 +1,6 @@
 #' make a file giving the probabilities of a rainy day
 #' for all lags up to max_rainy_day_order
-#' and the mean and standard deviation of the rainfall
+#' and the mean  of the rainfall
 #' given that the day is rainy, both unconditional and
 #' conditional on some rain pattern up to max_mean_rain_oder
 #' 
@@ -9,15 +9,15 @@
 #' @param max_rainy_day_order  All lags up to this order are calculated
 #' to determine if the day is rainy
 #' @param max_mean_rain_order  All lags up to this order are calculated to
-#' determine the mean and standard deviation of the amount of rain or rainy days
+#' determine the mean of the amount of rain or rainy days
 #' @return A file with 366 rows and a number of columns giving
 #' the probability of rain for a given lag, for each lag the number of days
 #' on which the probability is based,
-#' the mean and standard deviation of rainfall given that the day had rain,
+#' the mean and rainfall given that the day had rain,
 #' again for a number of lags and for each lag 
 #' number of rainy days
 #' @details for the probability of a rainy day, take all lags up, to
-#' length max_rainy_day_order, for the mean and std  of rain take all
+#' length max_rainy_day_order, for the mean  of rain take all
 #' lags up to max_mean_rain_order
 #' @export
 
@@ -64,7 +64,6 @@ make_all_probs= function(data,max_rainy_day_order=2,max_mean_rain_order=1) {
   
   weights["# wet days"]=num_wet
   probs["<rain>"]=sapply(days_with_rain,mean,na.rm=TRUE)
-  probs["sd(rain)"]=sapply(days_with_rain,sd,na.rm=TRUE)
 
   tempout = cbind(probs,weights)
   
@@ -76,7 +75,7 @@ make_all_probs= function(data,max_rainy_day_order=2,max_mean_rain_order=1) {
     
   }
   
-  #add markov ammounts a stadard dev of rain
+  #add markov means  of rain
   
   for(k in 1:max_mean_rain_order){
     tempcols=make_some_probs_rain(data,order=k)

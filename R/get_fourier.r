@@ -5,9 +5,12 @@
 #' @param first_fit_order  the first fit order used
 #' @param lag  the lag to be fit
 #' @param is_rain  TRUE if the fit is to mean rain
-#' @param the fitting method to use
+#' @param the fitting method to use  
 #' @return the order used to fit lag
-#' @details  TBD
+#' @details  The function detemines the name of the column
+#'    of data corresponding to the lag or rain lag.   This column
+#'    is fitted by finite Fourier functions in the interactive
+#'    function \code{fit_probs_inter}.
 #' @export
 
 get_fourier=function(probs, first_fit_order=1,lag="d",is_rain=FALSE,method="bernoulli"){
