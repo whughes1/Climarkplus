@@ -18,7 +18,7 @@
 <rw_fit_order>=4
 <rw_offset> = NO
 
-<rd>=rd
+<rd>=d
 <rd_fit_order>=4
 <rd_offset> = NO
 

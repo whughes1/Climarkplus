@@ -23,21 +23,21 @@
 #'@export
 
 make_param_file=function(data_set,max_order=3,max_rain_order=2,
-                         filename=NUll,all_pbs=NULL){
+                         filename=NULL,all_pbs=NULL){
   
   
   data_set_doy=convert_data(data_set)
   data_wm=add_markov(data_set_doy,max_order)
 
   if(is.null(all_pbs)){
-  all_pbs=make_all_probs(data_set,max_order,max_rain_order)
+  all_pbs=make_all_probs(data_wm,max_order,max_rain_order)
   }
   
   params=NULL
   
-  #order=choose_order(dataset) 
-  #rain_order=choose_rain_order(dataset)
-  order=2
+  order= max_order
+  rain_order=max_rain_order
+
   
   levels=levs(order)
   
@@ -70,11 +70,13 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
       
     }
   }
+  #note the order may have decreased
   
+  params["order"]=max(nchar(params[levels]))
   
   #fit the rain stuff
   
-  order=1
+  order=rain_order
   
   levels = levs(order)
   for(lev in levels){
@@ -109,5 +111,22 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
     }
   }
   params[params==""]="0"
-  write_pl(params,filename)
+  
+  if(identical(unique(params[paste("r",levels,sep="")]),"0")){
+      params["rain_order"]="0"
+  } else{
+    params["rain_order"]=max(nchar(params[paste("r",levels,sep="")]))
+  }
+       
+  
+
+  
+  
+  if(!is.null(filename)){
+    write_pl(params,filename)
+  }else{
+    params
+  }
+  
+  
 }   

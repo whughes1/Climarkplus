@@ -85,17 +85,22 @@ add_level=function(list){
 
 #a character based dot product
 
-cdot=function(x,y) {
+cdot=function(x,y,mult="*") {
   if(length(x) != length(y)) stop("In cdot vectors must be the same size")
-  dot=paste(x[1],"*",y[1])
+  dot=paste(x[1],mult,y[1])
   if(length(x) > 1){
     
     for(i in 2:length(x)){
-      dot= paste(dot,"+", x[i],"*",y[i])
+      dot= paste(dot,"+", x[i],mult,y[i])
     }
   }
   dot
 }
+
+
+
+
+
 
 #logit function
 

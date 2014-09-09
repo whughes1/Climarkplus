@@ -15,11 +15,12 @@
 make_fourier_string=function(cs,lag){
   f_string=NULL
   csn=names(cs)
-  pfix=paste("ULAGS",lag,":",sep="") #eg ULAGSdd:
-  temp=cs[grepl(pfix,csn)] #coefficients of anything with pfix in name 
+  pat=paste("[^dw]",lag,"[^dw]",sep="") #anything containing lag not preceded or followed by d or w
+  temp=cs[grepl(pat,csn)] #coefficients of anything with pfix in name 
   #this give the vector of Fourier coefficients
   #for lag
-  tsn=gsub(pfix,"",names(temp)) #names without pfix (Fourier terms)
+  tsn=gsub("^[^cs]*","",names(temp))  #get rid or everything up to cos or sin
+  tsn= gsub(")$","",tsn) #get rid or trailing paren, what is left is fourier coef
   f_string=cdot(temp,tsn) 
   
   f_string

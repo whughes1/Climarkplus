@@ -60,13 +60,13 @@ fit_amounts=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
     }
   }
       
-  fit_string=make_fit_string(filename,others=others,
+  fit_string=make_fit_string_new(filename,others=others,
                              other_model_string=other_model_string,
                              is_rain=TRUE)
   subdata<-subset(wms,wet_or_dry=="w")
   fit=glm(fit_string,family="Gamma",subdata)
   
-  info_list=list(params,"end")
+  info_list=list(params,fit_string,subdata,"end")
   fit_object = list(info_list,fit)
   
   fit_object

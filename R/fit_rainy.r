@@ -57,11 +57,11 @@ fit_rainy=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
   wms["w_or_d"] = as.numeric(temp)
   
   ulags=levels(wms[,"ULAGS"])
-  fit_string=make_fit_string(filename,others=others,other_model_string=other_model_string)
+  fit_string=make_fit_string_new(filename,others=others,other_model_string=other_model_string)
   
   fit=glm(fit_string,family="binomial",wms)
   
-  info_list=list(params,"end")
+  info_list=list(params,fit_string,wms,"end")
   fit_object = list(info_list,fit)
   
   fit_object

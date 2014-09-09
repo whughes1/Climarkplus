@@ -20,6 +20,12 @@ make_eval_string=function(cs,lag,is_rain=FALSE){
     csn=names(cs)
     eval_string=NULL
     
+  
+    
+    #get coeffictients from start of string
+    #ugly, but works as long as other does not inlcude
+    #anything including the letters ULAGS
+    #a count would be better
     
     while (!grepl("ULAGS",csn[1])){
       other_coef= cs[1]
