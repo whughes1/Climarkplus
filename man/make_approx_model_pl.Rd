@@ -10,7 +10,7 @@ process}
   \item{probs}{the raw markov wet/dry probabilities and the
   rain mean/std}
 
-  \item{filename}{}
+  \item{filename}{a parameter files}
 }
 \description{
   Make an approximate model by fitting estimated

@@ -6,7 +6,7 @@
 }
 \arguments{
   \item{dataset}{A standard dataset with \code{DOY} and
-  \code{wet_or_dry} solums}
+  \code{wet_or_dry} colums}
 }
 \value{
   A standard data set with columns \code{spell_length} and

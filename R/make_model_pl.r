@@ -9,6 +9,7 @@
 #' from the raw data.  A fourier fit is done.  Which lags are used,
 #' the fitting order, and whether an offset is applied to get the final curve
 #' is determined by the values of parameters in the given file.
+#' @note  only produces an approximate model
 #' @export
 
 make_model_pl=function(probs,filename=NULL)

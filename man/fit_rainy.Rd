@@ -33,7 +33,7 @@ process}
   determined by the values in the parameter file.  This
   produces a markov model of chance of rain (year
   independent).  The parameter \code{others} should be a
-  vector or character strings.  It is used to add
+  vector of character strings.  It is used to add
   predictors to the fit formula.  The strings should be the
   names of columns in the data set.  The parmeter
   \code{other_model_string} is used to experiment with

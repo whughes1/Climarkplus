@@ -9,7 +9,7 @@
 #' @param span  length in which there is no dry spell(see details)
 #' @param dry_length length of maximum dry spell(see details)
 #' @param type 1 or 2 (see details)
-#' @return The day or year of the start of the growing season.
+#' @return The day of year of the start of the growing season.
 #' @details  Two definitons are used, \code{type} 1 and 2:
 #' 
 #'   1: the first day of a rainy period in which there is \code{n_total}

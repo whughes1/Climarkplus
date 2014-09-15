@@ -6,6 +6,8 @@
 #' @param year_change_in_july  usefull if growing season crosses years.
 #' July 1970 will have "Year" 1971
 #' @return A standard data set with added columns for day, month and mod_year
+#' @note mod_year may not be the date year if the growing season crosses year
+#' boundaries.   We assume that either December or July is in the dry season
 #' @export
 
 add_dmy=function(dataset,year_change_in_july=FALSE){

@@ -1,13 +1,7 @@
 
-#' Find the offset by which curve best fits data
+#' Out of date and not very general
 #' 
-#' 
-#' @param the model to be plotted
-#' 
-#' @return none
-#' 
-#' 
-#' @details  A plot is mad
+#' @note Will not work but worth fixing
 #' 
 #' @export
 

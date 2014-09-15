@@ -7,7 +7,7 @@ be used and for each lag used we deternine the number of Fourier
 harmonics needed to adaquately model it}
 \usage{
   make_param_file(data_set, max_order = 3,
-    max_rain_order = 2, filename = NULLm, all_pbs = NULL)
+    max_rain_order = 2, filename = NULL, all_pbs = NULL)
 }
 \arguments{
   \item{data_set}{(must have Markov lags)}

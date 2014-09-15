@@ -1,3 +1,9 @@
+
+
+#' A utility ot fill a markov order model
+#' 
+#' @note obsolete
+#'
 get_mixed_models= function(max_w,max_d){
   m_mod=NULL
   

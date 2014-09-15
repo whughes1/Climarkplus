@@ -23,7 +23,7 @@ Day of the growing season}
   \item{type}{1 or 2 (see details)}
 }
 \value{
-  The day or year of the start of the growing season.
+  The day of year of the start of the growing season.
 }
 \description{
   Given a year of data, determine the first Day of the

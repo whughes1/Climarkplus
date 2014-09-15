@@ -3,10 +3,12 @@
 #' given that the day is rainy for each lag up to order
 #' 
 #' 
-#' @inheritParams construct_model
+#' @param data  A standard data set  
+#' @param order  The order of the lags to calcualte
 #' @return A file with 366 rows and 2 +  3*(2^order)  columns giving
 #' the mean and deviation of rainfall on rainy days and for each  
 #' lag, the number of rainy days
+#' @note standard deviation is no longer used and may be removed
 #' @export
 
 make_some_probs_rain= function(data,order=2) {

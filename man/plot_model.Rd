@@ -1,19 +1,13 @@
 \name{plot_model}
 \alias{plot_model}
-\title{Find the offset by which curve best fits data}
+\title{Out of date and not very general}
 \usage{
   plot_model(model, mname = NULL)
 }
-\arguments{
-  \item{the}{model to be plotted}
-}
-\value{
-  none
-}
 \description{
-  Find the offset by which curve best fits data
+  Out of date and not very general
 }
-\details{
-  A plot is mad
+\note{
+  Will not work but worth fixing
 }
 

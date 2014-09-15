@@ -20,4 +20,9 @@ data set}
   Add columns with the Day, Month and "Year" to a standard
   data set
 }
+\note{
+  mod_year may not be the date year if the growing season
+  crosses year boundaries.  We assume that either December
+  or July is in the dry season
+}
 

@@ -1,6 +1,10 @@
 
 
- 
+#' Compare  curves to see
+#' when you need a higher order model
+#' 
+#' @note obsolete
+
 compare_curves=function(probs,case="d"){
   if(case == "d"){
     #plot(probs$"P(w|d)")

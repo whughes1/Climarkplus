@@ -17,4 +17,7 @@ given that the day is rainy,}
   the mean and standard deviation of the rainfall given
   that the day is rainy,
 }
+\note{
+  obsolete, use make_all_probs
+}
 

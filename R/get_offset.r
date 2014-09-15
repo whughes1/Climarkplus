@@ -16,6 +16,8 @@
 #' is the square root of the data weight times the curve weight.
 #' It is not necessary that the "shape" have mean 0.
 #' 
+#' @note not currently used
+#' 
 #' @export
 
 get_offset=function(data,data_ws=NULL,curve,curve_ws=NULL)

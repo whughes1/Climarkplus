@@ -17,7 +17,7 @@
 #' the fitting order, and whether an offset is applied to get the final curve
 #' is determined by the values in the parameter file.  This produces a markov
 #' model of chance of rain (year independent).  The parameter \code{others}
-#' should be a vector or character strings.   It is used to add predictors
+#' should be a vector of character strings.   It is used to add predictors
 #' to the fit formula.   The strings should be the names of columns in the
 #' data set.   The parmeter \code{other_model_string} is used to experiment with
 #' different types of models and is usually NULL
@@ -57,11 +57,11 @@ fit_rainy=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
   wms["w_or_d"] = as.numeric(temp)
   
   ulags=levels(wms[,"ULAGS"])
-  fit_string=make_fit_string_new(filename,others=others,other_model_string=other_model_string)
+  fit_string=make_fit_string(filename,others=others,other_model_string=other_model_string)
   
   fit=glm(fit_string,family="binomial",wms)
   
-  info_list=list(params,fit_string,wms,"end")
+  info_list=list(params,fit_string,wms,others,"end")
   fit_object = list(info_list,fit)
   
   fit_object

@@ -3,7 +3,8 @@
 #' @param file  The filename of the parameter file
 #' @return  a list of the form list[key]=value  (value a string)
 #' @details  Only lines consisting of <key>=value are parsed, other lines
-#' are ignored.  
+#' are ignored.  If text is not null, text is used rather than
+#' reading from the filename  
 #' @export
 
 read_pl=function(file="filename",text=NULL){

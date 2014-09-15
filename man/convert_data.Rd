@@ -13,8 +13,8 @@
 \description{
   Convert a data set to standard form
 }
-\note{
-  This function does little but add DOY 60 to non_leap
-  years
+\details{
+  This function selects some needed coluns and makes a DOY
+  column (every year has DOY 61 March 1)
 }
 

@@ -1,3 +1,15 @@
+
+#' A simple utility to make a vector of the
+#' lag actually used for a given line 
+#'
+#' @param wms  a standard data set
+#' @param filename  a parameter file
+#' @param is_rain names slightly different if called
+#' for rain lags
+#' @return A vector of the lags actually used
+#' @note  No error checking is done
+#'
+
 make_ulags=function(wms,filename=NULL,is_rain=FALSE){
   
   params=read_pl(filename)

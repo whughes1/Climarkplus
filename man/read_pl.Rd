@@ -15,6 +15,7 @@
 }
 \details{
   Only lines consisting of <key>=value are parsed, other
-  lines are ignored.
+  lines are ignored.  If text is not null, text is used
+  rather than reading from the filename
 }
 

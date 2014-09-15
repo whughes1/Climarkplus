@@ -1,3 +1,6 @@
+# A bunch of simple utilities needed by Climarkplus
+
+
 require(lubridate)
 require(zoo)
 

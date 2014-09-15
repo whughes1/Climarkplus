@@ -41,13 +41,16 @@ make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL,is_ra
       levels=NULL
     }
     
-    markov_string=make_markov_string(order=order)
+    
+    
+    markov_string=make_markov_string(params,levels,is_rain=is_rain)
     
     
     offsets=NULL
     
     for (lev in levels){
       arg= paste(lev,"_offset",sep="")
+      if(is_rain) arg=paste("r",arg,sep="")
       if(params[arg]=="YES"){
         k=nchar(lev)
         temp=paste("Off",lev,sep="")
@@ -60,9 +63,9 @@ make_fit_string=function(filename=NULL,others=NULL,other_model_string=NULL,is_ra
   
   
   if(is_rain){
-    fit_string=paste("Rain ~",markov_string)
+    fit_string=paste("Rain ~",markov_string,"-1")
   } else{
-    fit_string=paste("w_or_d ~",markov_string)
+    fit_string=paste("w_or_d ~",markov_string,"-1")
   }
   
     

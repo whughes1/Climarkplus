@@ -38,4 +38,7 @@ conditional on some rain pattern up to max_mean_rain_oder}
   length max_rainy_day_order, for the mean of rain take all
   lags up to max_mean_rain_order
 }
+\note{
+  can be a bit slow for large orders
+}
 

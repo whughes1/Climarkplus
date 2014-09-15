@@ -5,6 +5,9 @@ with lags up to oder}
 \usage{
   make_some_probs(data, order = 2)
 }
+\arguments{
+  \item{order}{The order of the lags to calculate}
+}
 \value{
   A file with 366 rows and 2^(order+1) columns giving the
   probability of rain given a certain lag, and the number

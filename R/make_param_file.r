@@ -70,9 +70,9 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
       
     }
   }
-  #note the order may have decreased
   
-  params["order"]=max(nchar(params[levels]))
+  
+  params["order"]=order
   
   #fit the rain stuff
   
@@ -112,11 +112,8 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
   }
   params[params==""]="0"
   
-  if(identical(unique(params[paste("r",levels,sep="")]),"0")){
-      params["rain_order"]="0"
-  } else{
-    params["rain_order"]=max(nchar(params[paste("r",levels,sep="")]))
-  }
+  params["rain_order"]=order
+  
        
   
 

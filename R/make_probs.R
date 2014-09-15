@@ -3,12 +3,13 @@
 #' given that the day is rainy,  
 #' 
 #' 
-#' @inheritParams construct_model
+#' 
 #' @return A file with 366 rows and 2^(order+1)+3 columns giving
 #' the probability of rain for a given lag, the number of days
 #' on which the probability is based,
 #' for mean rainfall, standard deviation of rainfall and 
 #' number of rainy days
+#' @note obsolete, use make_all_probs
 #' @export
 
 make_probs= function(data,order=2,thresh=.12) {

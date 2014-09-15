@@ -3,7 +3,8 @@
 #' 
 #' @param   Data  a dataset
 #' @return A standard data set (every year has DOY 61 March 1)
-#' @note  This function does little but add  DOY 60 to non_leap years
+#' @details  This function selects some needed coluns and makes
+#' a DOY column (every year has DOY 61 March 1)
 #' @export
 
 convert_data=function(Data){
@@ -19,7 +20,7 @@ convert_data=function(Data){
   colnames(datat)=c("Station","Date","Rain") 
   datat$Rain=as.numeric(as.character(datat$Rain))
   
-  # add daz of year, for every year Day 61
+  # add day of year, for every year Day 61
   # is march  1, thus add 1 to non leap years
   
   

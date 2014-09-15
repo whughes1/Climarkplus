@@ -1,7 +1,9 @@
 #' Add makov columns up to order to a standard data set 
 #' 
 #' 
-#' @inheritParams construct_model
+#' @param data a standard data set
+#' @param order calculate lags to this order
+#' @param thresh  threshold of rain for a wet day
 #' @return A standard data set with columns "wet_or_dry" and Lag_1 Lag_2 ...
 #' Lag_order
 #' @export

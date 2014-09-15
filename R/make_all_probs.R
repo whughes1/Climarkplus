@@ -19,6 +19,7 @@
 #' @details for the probability of a rainy day, take all lags up, to
 #' length max_rainy_day_order, for the mean  of rain take all
 #' lags up to max_mean_rain_order
+#' @note can be a bit slow for large orders
 #' @export
 
 make_all_probs= function(data,max_rainy_day_order=2,max_mean_rain_order=1) {

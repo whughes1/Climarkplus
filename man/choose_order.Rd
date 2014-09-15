@@ -24,9 +24,11 @@ determined by the drop in the deviance being above a threshold}
   threshold
 }
 \details{
-  The fit order will be increases by one and the decrease
+  The fit order will be increased by one and the decrease
   in deviance checked.  This procedure will continue until
   the decrease in devience is less than the threshold.
+}
+\note{
   This seems to work well with the bernoulli method, but
   can be problematic with standard method.
 }

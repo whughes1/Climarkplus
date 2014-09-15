@@ -1,8 +1,10 @@
 #' Add spell info to dataset
 #' 
 #' 
-#' @param dataset  A standard dataset with \code{DOY} and \code{wet_or_dry} solums
-#' @return A standard data set with columns \code{spell_length} and \code{First DOY}
+#' @param dataset  A standard dataset with \code{DOY} and \code{wet_or_dry} 
+#' colums
+#' @return A standard data set with columns \code{spell_length} and
+#'  \code{First DOY}
 #' @details A spell consists of consecutive days that are wet,dry or unkonwn.
 #' Spells can cross year boundaries.  For each day, the length of the current
 #' spell is in \code{spell_length}and the day it started is in \code{First DOY}.
@@ -27,7 +29,7 @@ add_spell_info=function(dataset){
   for(index in 2:num_rows){
     
     #skip DOY 60 in non_leap_years
-    #we can leave this as there should not
+    #we can leave this but there should not
     #be DOY 60 in a non leap year
     
     if(isTRUE(dataset$DOY[index-1]==59)){

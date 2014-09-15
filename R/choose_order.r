@@ -10,10 +10,13 @@
 #' @return A list consisting of the fitted probabilities,
 #' (without NA's, the oder of the solution, and the solution)
 #' 
-#' @details  The fit order will be increases by one and the decrease
+#' @details  The fit order will be increased by one and the decrease
 #' in deviance checked.  This procedure will continue until the decrease
-#' in devience is less than the threshold.  This seems to work well
+#' in devience is less than the threshold. 
+#' 
+#'@note  This seems to work well
 #' with the bernoulli method, but can be problematic with standard method.
+#' 
 #' @export
 
 

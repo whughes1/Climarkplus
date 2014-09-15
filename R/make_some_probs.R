@@ -2,7 +2,8 @@
 #' with lags up to oder
 #' 
 #' 
-#' @inheritParams construct_model
+# @param data  A standard data set  
+#' @param order  The order of the lags to calculate
 #' @return A file with 366 rows and 2^(order+1) columns
 #' giving the probability of rain given a certain lag,
 #' and the number of times this lag shows up

@@ -23,4 +23,7 @@ process}
   offset is applied to get the final curve is determined by
   the values of parameters in the given file.
 }
+\note{
+  only produces an approximate model
+}
 

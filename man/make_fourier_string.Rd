@@ -4,7 +4,7 @@
 a string suitable for computing fourier expansion
 of the given lag}
 \usage{
-  make_fourier_string(cs, lag)
+  make_fourier_string(cs, lag, is_rain = FALSE)
 }
 \arguments{
   \item{cs}{the coefficients, for form see details}
@@ -22,6 +22,6 @@ of the given lag}
   \code{fit_rainy} and \code{fit_amounts}.  It is delicate
   as any change in the output format of glm will break it.
   It depends on the name of the Fourier coefficient for lag
-  having the form ULAGS lag : Fourier function.
+  having the form I((ULAGS[lag]) * Fourier function)
 }
 

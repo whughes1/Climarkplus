@@ -26,4 +26,7 @@
   the square root of the data weight times the curve
   weight. It is not necessary that the "shape" have mean 0.
 }
+\note{
+  not currently used
+}
 

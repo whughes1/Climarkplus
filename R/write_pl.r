@@ -1,3 +1,11 @@
+#' A simple utility to write out a parameter
+#' file
+#' 
+#' 
+#' @param params  a vector of parameters
+#' @param filname  the filename to write to
+#' @note  No error checking is done
+#'
 
 write_pl=function(params,filename){
   

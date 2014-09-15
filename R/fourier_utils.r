@@ -1,6 +1,11 @@
-#Fourier utils
-#a bit specialized to the Climarkplus
-#package, but can be make more gerneral
+#' Make a string of fourier functions
+#
+#' @param n  order of the string
+#
+#' @return A string of fourier functions of length n
+#' @note  a bit specialized to the Climarkplus
+#  package, but can be make more gerneral
+#'
 
 
 

@@ -3,7 +3,7 @@
 #' process
 #' 
 #' @param probs  the raw markov wet/dry probabilities and the rain mean/std
-#' @param filename
+#' @param filename  a parameter files
 #' 
 #' @details  The probabilities will normally be produced by taking the estimates
 #' from the raw data.  A fourier fit is done.  Which lags are used,
