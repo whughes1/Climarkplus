@@ -1,6 +1,8 @@
-fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="bernoulli")
+fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,
+                          y_label="",method="bernoulli",mask=NULL)
 {
   if(is.null(ws)) ws=rep(1,366) 
+  if(!is.null(mask)) ws=ws*mask
   
   order=start_order
   last_order=order
@@ -33,7 +35,7 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     else{
       b_mat=make_bernoulli_vector(probs,ws)
       form=as.formula(paste("b_mat ~ ",form))
-      sol=glm(form,family=binomial,na.action=na.exclude)
+      sol=glm(form,family=binomial,weights=ws,na.action=na.exclude)
       #no_na does not contain NA values, fitted(sol) or predicted(sol) does
       old_devi=devi
       devi=deviance(sol)
@@ -48,7 +50,7 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
     
     #only get rid of NA,s if we are filtering
     #the raw data (i.e. N > 1)
-    #plot the raw data a circles, radius proportional
+    #plot the raw data as circles, radius proportional
     #to the square root of the weight 
     
     main_title=paste(y_label,"fitted by Fourier series: order=",
@@ -80,6 +82,7 @@ fit_probs_inter= function(probs,ws=NULL,start_order=1,N=8,y_label="",method="ber
            lty = c(0, 1),pch=c(19,NA),col = c("red",
                                                "blue"),cex=.8)
     
+    if(!is.null(mask)) mask_plot(mask)    
     
     # output query
     cat("\n\nenter\n\na:  use this fit\np:  select previous order\nf:  add one to order\nb:  take one from order\nk:  set order to k")
