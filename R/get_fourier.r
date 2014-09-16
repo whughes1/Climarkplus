@@ -13,7 +13,8 @@
 #'    function \code{fit_probs_inter}.
 #' @export
 
-get_fourier=function(probs, first_fit_order=1,lag="d",is_rain=FALSE,method="bernoulli"){
+get_fourier=function(probs, first_fit_order=1,lag="d",is_rain=FALSE
+                     ,method="bernoulli",mask=NULL){
   
   
   if(is_rain){
@@ -45,7 +46,8 @@ get_fourier=function(probs, first_fit_order=1,lag="d",is_rain=FALSE,method="bern
   fourier_order=fit_probs_inter(probs[,colname],
                           ws=ws,N=4,
                           start_order=first_fit_order,
-                          y_label=colname,method=method)
+                          y_label=colname,method=method,
+                          mask=mask)
   fourier_order
   
   }

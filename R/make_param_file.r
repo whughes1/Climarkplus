@@ -23,7 +23,7 @@
 #'@export
 
 make_param_file=function(data_set,max_order=3,max_rain_order=2,
-                         filename=NULL,all_pbs=NULL){
+                         filename=NULL,all_pbs=NULL,mask=NULL){
   
   
   data_set_doy=convert_data(data_set)
@@ -47,7 +47,7 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
   
   for(lev in levels){
     
-    lag_chose=compare_lags(all_pbs,search_lag=lev)
+    lag_chose=compare_lags(all_pbs,search_lag=lev,mask=mask)
     params[lev]=lag_chose[[1]]
     params[paste(lev,"_offset",sep="")]=lag_chose[[2]]
   }
@@ -63,7 +63,7 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
       params[paste(lev,"_fit_order",sep="")]=Fourier_order
     } else {
       
-      Fourier_order = get_fourier(all_pbs,1,params[lev])
+      Fourier_order = get_fourier(all_pbs,1,params[lev],mask=mask)
       done = c(done,params[lev])
       lev_orders[params[lev]]=Fourier_order
       params[paste(lev,"_fit_order",sep="")]=Fourier_order
@@ -81,7 +81,7 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
   levels = levs(order)
   for(lev in levels){
     
-    lag_chose=compare_lags(all_pbs,search_lag=lev,is_rain=TRUE)
+    lag_chose=compare_lags(all_pbs,search_lag=lev,is_rain=TRUE,mask=mask)
     params[paste("r",lev,sep="")]=lag_chose[[1]]
     params[paste("r",lev,"_offset",sep="")]=lag_chose[[2]]
   }
@@ -103,7 +103,8 @@ make_param_file=function(data_set,max_order=3,max_rain_order=2,
       params[paste("r",lev,"_fit_order",sep="")]=Fourier_order
     } else {
       
-      Fourier_order = get_fourier(all_pbs,1,plev,is_rain=TRUE,method="Standard")
+      Fourier_order = get_fourier(all_pbs,1,plev,is_rain=TRUE,
+                                  method="Standard",mask=mask)
       done = c(done,plev)
       lev_orders[plev]=Fourier_order
       params[paste("r",lev,"_fit_order",sep="")]=Fourier_order

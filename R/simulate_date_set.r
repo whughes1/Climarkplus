@@ -68,14 +68,14 @@ simulate_data_set=function(model,start_year=1970,num_years=10,
   
  
   tdd=ymd(paste(as.character(start_year),"-1-1"))
+  ldd=ymd(paste(as.character(start_year+num_years),"-1-1"))
+  
   td=as.numeric(as.Date(tdd))
   
-  #The data set will be a bit
-  #bigger than needed as non leap years
-  #need only 365 rows.  Just leave this
-  # for now
+  #Use the exact number of days as the length
   
-  length=366*num_years
+  length = as.numeric(as.Date(ldd)-as.Date(tdd))
+
   
   data_set= matrix(nrow=length,ncol=4)
   

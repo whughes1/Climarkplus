@@ -6,6 +6,7 @@
 #' @param ws total number of successes and failures
 #' @param thresh  The deviance threshold
 #' @param method  the fitting method used, bernoulli or std
+#' @mask  a standard mask
 #' 
 #' @return A list consisting of the fitted probabilities,
 #' (without NA's, the oder of the solution, and the solution)
@@ -20,7 +21,7 @@
 #' @export
 
 
-choose_order=function(probs,ws,thresh=5.0,method="bernoulli")
+choose_order=function(probs,ws,thresh=5.0,method="bernoulli",mask=NULL)
 {
   old_devi=0
   old_sol=0
@@ -37,7 +38,7 @@ choose_order=function(probs,ws,thresh=5.0,method="bernoulli")
     old_sol=new_sol
     old_no_na=no_na
     
-    temp=fit_probs(probs,ws,order=order,method=method)
+    temp=fit_probs(probs,ws,order=order,method=method,mask)
     no_na=temp[[1]]
     new_sol=temp[[2]]
     devi=deviance(new_sol)

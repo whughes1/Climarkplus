@@ -15,7 +15,8 @@
 #' or not to accept the lag, perhaps with an offset.
 #' 
 #' @export
-compare_lags=function(all_pbs,search_lag="dd",is_rain=FALSE){
+compare_lags=function(all_pbs,search_lag="dd",is_rain=FALSE,
+                      mask=NULL){
   input="a"
   first_round=TRUE
   while(input!="Q") {
@@ -86,7 +87,8 @@ compare_lags=function(all_pbs,search_lag="dd",is_rain=FALSE){
     
     lagline=fit_probs(all_pbs[,c_lag],
                       ws=ws,
-                      order=4)[[1]]
+                      order=4,
+                      mask)[[1]]
     
     if(lag==""){
       main_title = paste ("Will no lag do for ",search_lag,"?",sep="")      
@@ -108,7 +110,8 @@ compare_lags=function(all_pbs,search_lag="dd",is_rain=FALSE){
     }
     lagline_search=fit_probs(all_pbs[,c_lag_search],
                       ws=ws,
-                      order=4)[[1]]
+                      order=4,
+                      mask=mask)[[1]]
     lines(lagline_search,col="red")
     
     
@@ -116,6 +119,7 @@ compare_lags=function(all_pbs,search_lag="dd",is_rain=FALSE){
            col = c("blue","red"),cex=.8)
     
     
+    if(!is.null(mask)) mask_plot(mask)  
   }
   
   if (input == "o"){

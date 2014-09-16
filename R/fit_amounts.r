@@ -26,7 +26,8 @@
 #' different types of models and is usually NULL
 #' @export
 
-fit_amounts=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
+fit_amounts=function(wms,filename=NULL,others=NULL,other_model_string=NULL,
+                     mask=NULL){
   
   temp = make_ulags(wms,filename,is_rain=TRUE)
   if(!is.null(temp)){
@@ -63,8 +64,16 @@ fit_amounts=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
   fit_string=make_fit_string(filename,others=others,
                              other_model_string=other_model_string,
                              is_rain=TRUE)
-  subdata<-subset(wms,wet_or_dry=="w")
-  fit=glm(fit_string,family="Gamma",subdata)
+  
+  
+  if(is.null(mask)){
+    subdata<-subset(wms,wet_or_dry=="w")  
+    fit=glm(fit_string,family="Gamma",subdata)
+  } else{
+    subdata<-subset(wms,wet_or_dry=="w" & mask[wms$DOY]==1)  
+    fit=glm(fit_string,family="Gamma",subdata)
+  }
+  
   
   info_list=list(params,fit_string,data,others,"end")
   fit_object = list(info_list,fit)

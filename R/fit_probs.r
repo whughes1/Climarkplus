@@ -1,15 +1,19 @@
 #' @export
-fit_probs = function(probs,ws=NULL,order=2,thresh=5,method="standard")
+fit_probs = function(probs,ws=NULL,order=2,thresh=5,method="standard",
+                     mask=NULL)
     
 {
   if(order ==  "choose")
   {
-    choose_order(probs,ws,thresh=thresh,method=method)
+    choose_order(probs,ws,thresh=thresh,method=method,mask=mask)
   }
   else{
     
     order=as.numeric(order)
     if(is.null(ws)) ws=rep(1,366) 
+    if(!is.null(mask)) ws=ws*mask
+    
+    
     to_fit=matrix(nrow=366,ncol=2*order)
     
     #set up sin and cos for fourier fit
@@ -38,6 +42,10 @@ fit_probs = function(probs,ws=NULL,order=2,thresh=5,method="standard")
       no_na=cbind(rep(1,366),to_fit) %*% as.matrix(coefficients(sol))
     }
     else{
+      
+      #this works with the mask but maybe using
+      #the subset parameter of glm would be better
+      
       b_mat=make_bernoulli_vector(probs,ws)
       form=as.formula(paste("b_mat ~ ",form))
       sol=glm(form,family=binomial,na.action=na.exclude)

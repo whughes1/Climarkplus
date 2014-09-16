@@ -10,7 +10,7 @@
 #' @param other_model_string  Can be anything.  Added to the
 #'        fitting formula verbatim.  Will probably mean the
 #'        fit cannot be used for the simulator                
-#' 
+#' @param mask  a standard mask see \code{\link{mask_util}}
 #' @details The basic idea is to fit the Fourier coefficients of the
 #' Markov probabilities to the raw data using logistic regression.
 #' Which lags are used,
@@ -23,7 +23,8 @@
 #' different types of models and is usually NULL
 #' @export
 
-fit_rainy=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
+fit_rainy=function(wms,filename=NULL,others=NULL,other_model_string=NULL,
+                   mask=NULL){
   
   temp = make_ulags(wms,filename)
   wms["ULAGS"]= as.factor(temp)
@@ -59,8 +60,12 @@ fit_rainy=function(wms,filename=NULL,others=NULL,other_model_string=NULL){
   ulags=levels(wms[,"ULAGS"])
   fit_string=make_fit_string(filename,others=others,other_model_string=other_model_string)
   
-  fit=glm(fit_string,family="binomial",wms)
   
+  if(is.null(mask)){
+    fit=glm(fit_string,family="binomial",wms)
+  }else{
+    fit=glm(fit_string,family="binomial",wms,subset=(mask[DOY]==1))
+  }
   info_list=list(params,fit_string,wms,others,"end")
   fit_object = list(info_list,fit)
   
