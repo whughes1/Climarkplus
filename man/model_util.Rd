@@ -2,6 +2,7 @@
 \alias{avg_daily_rainfall}
 \alias{avg_day_rain_in_year}
 \alias{avg_yearly_rainfall}
+\alias{make_stats_object}
 \alias{model_util}
 \alias{sd_daily_rainfall}
 \alias{sd_yearly_rainfall}
@@ -19,6 +20,8 @@
   avg_day_rain_in_year(dta, plot = FALSE, mask = NULL)
 
   spell_dist(dta, plot = FALSE, mask = NULL, spell = "w")
+
+  make_stats_object(dta, mask = NULL)
 }
 \arguments{
   \item{dta}{a standard data set}
@@ -30,10 +33,10 @@
   \item{spell}{"w" for wet spells, "d" for dry spells}
 }
 \description{
-  These utilities are to help examine and evaluate models.
-  Most have a plot utility.  However, this plot is very
-  simple and is just meant as a sanity check. These
-  utilities are very dependent on the properties of
+  These utilities are to help examine and evaluate datasets
+  and models.  Most have a plot utility.  However, this
+  plot is very simple and is just meant as a sanity check.
+  These utilities are very dependent on the properties of
   standard data sets and standard masks.
 }
 

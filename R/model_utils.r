@@ -118,7 +118,7 @@ spell_dist=function(dta,plot=FALSE,mask=NULL,spell="w"){
 #'@export
 
 
-make_stats_object(dta,mask=NULL){
+make_stats_object=function(dta,mask=NULL){
   
   
   
