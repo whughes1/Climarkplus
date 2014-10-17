@@ -36,9 +36,11 @@
   Make a model from fit objects
 }
 \details{
-  The underlying functions use some r string maniplation
-  which this function evaluates as R code to compute the
-  output of the fits.  As yet this only handles stuff
-  dependent only on DOY
+  The underlying functions use some r string maniplation to
+  produce strings which this function evaluates as R code
+  to compute the output of the fits.  Stuff dependent on
+  DOY uses a vector 1:366.  Stuff dependent of julian day
+  (others) can use the data, or optional data sets (which
+  are assumed to cover the time interval of interest.)
 }
 

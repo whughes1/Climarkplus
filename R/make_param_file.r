@@ -12,7 +12,8 @@
 #' @param all_pbs    This is calculated by the program but
 #'                   it is not fast.   When dealing multiple
 #'                   times with one data set it is worth
-#'                   computing this once and keepint it.
+#'                   computing this once and keeping it.
+#'@param mask  a standard mask see \code{\link{mask_util}}                   
 #'@return A parameter list, the same list that would be
 #'          obtained by reading the output parameter file.
 #'@details For each lag we help determine                             

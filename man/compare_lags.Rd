@@ -3,7 +3,8 @@
 \title{Compare  curves to see
 when you need a higher order model}
 \usage{
-  compare_lags(all_pbs, search_lag = "dd", is_rain = FALSE)
+  compare_lags(all_pbs, search_lag = "dd", is_rain = FALSE,
+    mask = NULL)
 }
 \arguments{
   \item{probs}{all raw probabilities}
@@ -12,6 +13,8 @@ when you need a higher order model}
   see if any can be used (perhaps with an offset)}
 
   \item{is_rain}{True if we are looking at mean rainfall}
+
+  \item{mask}{a standard mask see \code{\link{mask_util}}}
 }
 \value{
   The lag to use and the offset

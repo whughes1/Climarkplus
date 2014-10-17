@@ -12,7 +12,7 @@ convert_data=function(Data){
   #test will have only needed columns
   #(not DOY we will make a new one)
   
-  test=cbind(Data$Station, as.character(Data$Date), Data$Rain)
+  test=cbind(as.character(Data$Station), as.character(Data$Date), Data$Rain)
 
   
   

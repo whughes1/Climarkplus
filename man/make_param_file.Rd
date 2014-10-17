@@ -7,7 +7,8 @@ be used and for each lag used we deternine the number of Fourier
 harmonics needed to adaquately model it}
 \usage{
   make_param_file(data_set, max_order = 3,
-    max_rain_order = 2, filename = NULL, all_pbs = NULL)
+    max_rain_order = 2, filename = NULL, all_pbs = NULL,
+    mask = NULL)
 }
 \arguments{
   \item{data_set}{(must have Markov lags)}
@@ -21,7 +22,9 @@ harmonics needed to adaquately model it}
 
   \item{all_pbs}{This is calculated by the program but it
   is not fast.  When dealing multiple times with one data
-  set it is worth computing this once and keepint it.}
+  set it is worth computing this once and keeping it.}
+
+  \item{mask}{a standard mask see \code{\link{mask_util}}}
 }
 \value{
   A parameter list, the same list that would be obtained by

@@ -4,7 +4,7 @@
 model the probabilities associated with lag}
 \usage{
   get_fourier(probs, first_fit_order = 1, lag = "d",
-    is_rain = FALSE, method = "bernoulli")
+    is_rain = FALSE, method = "bernoulli", mask = NULL)
 }
 \arguments{
   \item{probs}{the markov wet/dry probabilities and the
@@ -17,6 +17,8 @@ model the probabilities associated with lag}
   \item{is_rain}{TRUE if the fit is to mean rain}
 
   \item{the}{fitting method to use}
+
+  \item{mask}{a standard mask see \code{\link{mask_util}}}
 }
 \value{
   the order used to fit lag

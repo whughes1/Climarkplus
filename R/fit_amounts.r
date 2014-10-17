@@ -10,7 +10,7 @@
 #' @param other_model_string  Can be anything.  Added to the
 #'        fitting formula verbatim.  Will probably mean the
 #'        fit cannot be used for the simulator                
-#' 
+#' @param mask  a standard mask see \code{\link{mask_util}}
 #' @details The basic idea is to fit the Fourier coefficients of the
 #' Markov probabilities to the raw data using Gamma regression.
 #' Which lags are used,
@@ -38,7 +38,7 @@ fit_amounts=function(wms,filename=NULL,others=NULL,other_model_string=NULL,
   
   params=read_pl(filename)
   order = as.numeric(params["rain_order"])
-  if(order>1){
+  if(order>0){
     levels=c("w","d")
     if(order>1){
       for(i in 1:(order-1)){
@@ -68,14 +68,40 @@ fit_amounts=function(wms,filename=NULL,others=NULL,other_model_string=NULL,
   
   if(is.null(mask)){
     subdata<-subset(wms,wet_or_dry=="w")  
-    fit=glm(fit_string,family="Gamma",subdata)
+    fit=NULL
+    result = tryCatch({
+      fit=glm(fit_string,family="Gamma",subdata) 
+    }, warning = function(w){ message("GLM gave the warning:\n")
+                              message(w)
+                              message("\n")
+                              message("This may be due to numeric instability")
+                              message("The fit may not have been produced")
+                              message("If so we try using a simple Gaussian fit")
+                              message("but this may cause problems with")
+                              message("modeling and/or simulation")
+                              
+                              #Who needs functional programming
+                              #this should probably be a return through
+                              #tryCatch
+                              if(is.null(fit)) {
+                                fit<<-glm(fit_string,gaussian("inverse"),subdata) 
+                              }
+    }
+    , error = function(e){
+
+      message("GLM FIT failed (numerical instability?)")
+      message("try a Gaussian fit, but there may be problems")
+      
+       fit<<-glm(fit_string,gaussian("inverse"),subdata)
+    }, finally = { #empty
+    })
   } else{
     subdata<-subset(wms,wet_or_dry=="w" & mask[wms$DOY]==1)  
     fit=glm(fit_string,family="Gamma",subdata)
   }
   
   
-  info_list=list(params,fit_string,data,others,"end")
+  info_list=list(params,fit_string,data,others,mask,"end")
   fit_object = list(info_list,fit)
   
   fit_object

@@ -6,6 +6,7 @@
 #' @param lag  the lag to be fit
 #' @param is_rain  TRUE if the fit is to mean rain
 #' @param the fitting method to use  
+#' @param mask  a standard mask see \code{\link{mask_util}}
 #' @return the order used to fit lag
 #' @details  The function detemines the name of the column
 #'    of data corresponding to the lag or rain lag.   This column

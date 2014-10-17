@@ -3,7 +3,8 @@
 \title{Fitting probabilites to a fourier series of some order
 determined by the drop in the deviance being above a threshold}
 \usage{
-  choose_order(probs, ws, thresh = 5, method = "bernoulli")
+  choose_order(probs, ws, thresh = 5, method = "bernoulli",
+    mask = NULL)
 }
 \arguments{
   \item{probs}{probability of success}
@@ -13,6 +14,8 @@ determined by the drop in the deviance being above a threshold}
   \item{thresh}{The deviance threshold}
 
   \item{method}{the fitting method used, bernoulli or std}
+
+  \item{mask}{a standard mask see \code{\link{mask_util}}}
 }
 \value{
   A list consisting of the fitted probabilities, (without

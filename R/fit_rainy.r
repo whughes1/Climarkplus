@@ -64,9 +64,10 @@ fit_rainy=function(wms,filename=NULL,others=NULL,other_model_string=NULL,
   if(is.null(mask)){
     fit=glm(fit_string,family="binomial",wms)
   }else{
-    fit=glm(fit_string,family="binomial",wms,subset=(mask[DOY]==1))
+    temp=wms[mask[wms$DOY]==1,]
+    fit=glm(fit_string,family="binomial",temp)
   }
-  info_list=list(params,fit_string,wms,others,"end")
+  info_list=list(params,fit_string,wms,others,mask,"end")
   fit_object = list(info_list,fit)
   
   fit_object

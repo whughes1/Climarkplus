@@ -5,7 +5,7 @@ Use a parameter \code{.pl} file to guide the fitting
 process}
 \usage{
   fit_amounts(wms, filename = NULL, others = NULL,
-    other_model_string = NULL)
+    other_model_string = NULL, mask = NULL)
 }
 \arguments{
   \item{wms}{the raw data, a data set}
@@ -19,6 +19,8 @@ process}
   \item{other_model_string}{Can be anything.  Added to the
   fitting formula verbatim.  Will probably mean the fit
   cannot be used for the simulator}
+
+  \item{mask}{a standard mask see \code{\link{mask_util}}}
 }
 \description{
   fit an extended Markov model to the amount of rain Use a

@@ -6,7 +6,7 @@
 #' @param ws total number of successes and failures
 #' @param thresh  The deviance threshold
 #' @param method  the fitting method used, bernoulli or std
-#' @mask  a standard mask
+#' @param mask  a standard mask see \code{\link{mask_util}}
 #' 
 #' @return A list consisting of the fitted probabilities,
 #' (without NA's, the oder of the solution, and the solution)

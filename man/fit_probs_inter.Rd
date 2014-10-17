@@ -5,7 +5,7 @@ Allow the user to see the fit given by
 different orders and choose the order}
 \usage{
   fit_probs_inter(probs, ws = NULL, start_order = 1, N = 8,
-    y_label = "", method = "bernoulli")
+    y_label = "", method = "bernoulli", mask = NULL)
 }
 \arguments{
   \item{pts}{The points to be fitted}

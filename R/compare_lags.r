@@ -7,6 +7,7 @@
 #'                    lag to see if any can be used (perhaps
 #'                    with an offset)
 #' @param is_rain     True if we are looking at mean rainfall
+#' @param mask  a standard mask see \code{\link{mask_util}}
 #' @return The lag to use and the offset
 #' 
 #' @details  For every prefix of the search lag (e.g search_lag = "ddw"

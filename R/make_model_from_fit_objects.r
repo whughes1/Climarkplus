@@ -19,9 +19,15 @@
 
 #' @return a model suitable as a parameter to synth_data_set_from_model
 #' @details  The underlying functions use some r string maniplation
-#' which this function evaluates as R code to compute the output of the
-#' fits.  As yet this only handles stuff dependent only on DOY 
+#' to produce strings which this function evaluates as R code
+#' to compute the output of the fits.  Stuff dependent on DOY uses a 
+#' vector 1:366.  Stuff dependent of julian day (others) can use the 
+#' data, or optional data sets (which are assumed to cover the time
+#' interval of interest.)
+#' 
+#' 
 #' @export
+
 make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
                                      rainy_other_ds=NULL,
                                      rainy_other_first_jul=NULL,
@@ -33,6 +39,9 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
   info2=fit_object_amount[[1]]
   params1=info1[[1]]
   params2=info2[[1]]
+  
+  is_rainy_mask=info1[[5]]
+  amt_rain_mask=info2[[5]]
   
   #make the model  (we add a temporary first column)
   temp=rep("",366)
@@ -62,14 +71,27 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
     colname=paste("P(w|",lag,")",sep="")
     eval_string = make_fourier_string(cs_ulag,params1[lag])
     
+    #<KLUDGE ALERT
+    # the proper way to do this would be to use NA or NAN
+    #as a mask signal.  This would require changing and
+    #perhaps slowing the simulator
+    #Use the fact we know inverse logit of a large
+    #negative number is very close to 0
+    
     DOY=1:366
     col_cont=(eval(parse(text=eval_string)))
+    
+    col_cont[is_rainy_mask == 0] <- -1e50
     
     mod[colname]=col_cont
   }
   
   
   #now take care of the others for wet or dry
+  #<KLUDGE ALERT> others are not masked
+  #it is assumed the contribution will be negligable compared
+  #to -1e50
+  
   if(length(cs_other) == 0){
     other_wd_offset=NULL
   }
@@ -109,8 +131,18 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
       colname=paste("<r|",lag,">",sep="")
       eval_string = make_fourier_string(cs_ulag,params2[paste("r",lag,sep="")])
       
+      
+      #<KLUDGE ALERT
+      # the proper way to do this would be to use NA or NAN
+      #as a mask signal.  This would require changing and
+      #perhaps slowing the simulator
+      #Use the fact we know inverse of a large
+      #number is very close to 0
+      
       DOY=1:366
       col_cont=(eval(parse(text=eval_string)))
+      
+      if(!is.null(amt_rain_mask)) col_cont[amt_rain_mask == 0] <- 1e50
       
       mod[colname]=col_cont
     }
@@ -119,6 +151,15 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
     eval_string = make_fourier_string(cs_ulag,NULL,is_rain=TRUE)
     DOY=1:366
     col_cont=(eval(parse(text=eval_string)))
+
+    #<KLUDGE ALERT
+    # the proper way to do this would be to use NA or NAN
+    #as a mask signal.  This would require changing and
+    #perhaps slowing the simulator
+    #Use the fact we know inverse of a large
+    #number is very close to 0
+    
+    if(!is.null(amt_rain_mask)) col_cont[is_rainy_mask == 0] <- 1e50
     
     mod[colname]=col_cont
     
@@ -130,6 +171,10 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
   mod = mod[,2:ncol(mod)]
   
   #now take care of the others for amount of rain
+  #<KLUDGE ALERT> others are not masked
+  #it is assumed the contribution will be negligable compared
+  #to 1e50
+  
   if(length(cs_other)==0){
     other_rain_offset=NULL
   }
@@ -149,9 +194,10 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
     
   }
   
+
   
-  
-  mod_object=list(info,mod,other_wd_offset,other_rain_offset)
+  mod_object=list(info,mod,other_wd_offset,other_rain_offset,
+                  is_rainy_mask, amt_rain_mask)
   
   mod_object
 }
