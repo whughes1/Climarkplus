@@ -166,7 +166,7 @@ make_model_from_fit_objects=function(fit_object_rainy,fit_object_amount,
     
   }
   
-  #loose the first column of mod
+  #lose the first column of mod
   
   mod = mod[,2:ncol(mod)]
   
