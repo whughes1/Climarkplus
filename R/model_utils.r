@@ -123,6 +123,8 @@ make_stats_object=function(dta,mask=NULL){
   
   
   stats_no_mask=NULL
+  stats_mask=NULL
+  
   
   stats_no_mask[[1]]=avg_daily_rainfall(dta)
   stats_no_mask[[2]]=sd_daily_rainfall(dta)
